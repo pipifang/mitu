@@ -51,9 +51,13 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-
     public Result userLogin(TUser user, HttpServletRequest request) {
         return service.userLogin(user, request.getRemoteAddr());
+    }
+
+    @GetMapping("/emaillogin")
+    public Result emailLogin(TUser user, HttpServletRequest request) {
+        return service.emailLogin(user, request.getRemoteAddr());
     }
 
     @PostMapping("/loginout")
@@ -73,5 +77,15 @@ public class LoginController {
         return service.findPassword(user);
     }
 
+    /**
+     * 检查用户名是否存在
+     *
+     * @param email
+     * @return
+     */
+    @PostMapping("/checkemail")
+    public Result checkEmail(String email) {
+        return service.checkRepeat(email);
+    }
 
 }

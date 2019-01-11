@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface TLogsMapper extends BaseMapper<TLogs> {
 
+    int insertSelective(TLogs logs);
 }

@@ -4,6 +4,7 @@ import com.qfedu.mitu.comment.constant.Constant;
 import com.qfedu.mitu.comment.utils.ConvertUtil;
 import com.qfedu.mitu.comment.utils.EncrypUtil;
 import com.qfedu.mitu.comment.vo.Result;
+import com.qfedu.mitu.comment.vo.ResultUtil;
 import com.qfedu.mitu.domain.TUser;
 import com.qfedu.mitu.mapper.TUserMapper;
 import com.qfedu.mitu.service.TUserService;

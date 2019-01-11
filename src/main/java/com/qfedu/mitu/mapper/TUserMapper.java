@@ -22,4 +22,7 @@ public interface TUserMapper extends BaseMapper<TUser> {
     TUser selectByEmail(String email);
 
     int uploadBackGround(TUser user);
+
+    TUser selectEmail(TUser user);
+
 }

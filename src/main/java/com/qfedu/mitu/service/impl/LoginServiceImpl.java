@@ -92,14 +92,14 @@ public class LoginServiceImpl implements LoginService {
                     user.setPassword(EncrypUtil.encAesStr(Constant.REGISTERKEY, code));
                     user.setUsername(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
                     i = userMapper.insert(user);
-                    logsMapper.insert(new TLogs(user.getId(), ip, "验证码验证"));
+                    logsMapper.insertSelective(new TLogs(user.getId(), ip, "验证码验证"));
                     String token = TokenUtil.createToken(JSON.toJSONString(userMapper.selectById(user.getId())), Constant.CODETOKENNUMBER);
                     jedisUtil.addHash(Constant.CODETOKENKEY, "token" + token, token);
                     return ConvertUtil.convert(i, "认证", user, token);
 
                 } else {
                     TUser user1 = userMapper.selectByEmail(email);
-                    logsMapper.insert(new TLogs(user1.getId(), ip, "验证码验证"));
+                    logsMapper.insertSelective(new TLogs(user1.getId(), ip, "验证码验证"));
                     String token = TokenUtil.createToken(JSON.toJSONString(userMapper.selectById(user1.getId())), Constant.CODETOKENNUMBER);
                     jedisUtil.addHash(Constant.CODETOKENKEY, "token" + token, token);
                     return ConvertUtil.convert(i, "认证", user1, token);
@@ -119,7 +119,22 @@ public class LoginServiceImpl implements LoginService {
 
             String token = TokenUtil.createToken(JSON.toJSONString(user1), user1.getId());
             jedisUtil.addHash(Constant.TOKENKEY, token, token);
-            logsMapper.insert(new TLogs(user1.getId(), ip, "登录成功"));
+            logsMapper.insertSelective(new TLogs(user1.getId(), ip, "登录成功"));
+            return ResultUtil.setOK("登录", token, user1);
+        }
+
+        return ResultUtil.setERROR("登录");
+    }
+
+    @Override
+    public Result emailLogin(TUser user, String ip) {
+        TUser user1 = userMapper.selectEmail(user);
+        String password = EncrypUtil.decAesStr(Constant.REGISTERKEY, user1.getPassword());
+        if (Objects.equals(password, user.getPassword())) {
+
+            String token = TokenUtil.createToken(JSON.toJSONString(user1), user1.getId());
+            jedisUtil.addHash(Constant.TOKENKEY, token, token);
+            logsMapper.insertSelective(new TLogs(user1.getId(), ip, "登录成功"));
             return ResultUtil.setOK("登录", token, user1);
         }
 

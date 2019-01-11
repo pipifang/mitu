@@ -1,16 +1,15 @@
 package com.qfedu.mitu.comment.filter;
 
-import com.alibaba.fastjson.JSON;
-import com.qfedu.mitu.comment.constant.Constant;
-import com.qfedu.mitu.comment.utils.JedisUtil;
-import com.qfedu.mitu.comment.vo.ResultUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
+        import com.alibaba.fastjson.JSON;
+        import com.qfedu.mitu.comment.constant.Constant;
+        import com.qfedu.mitu.comment.utils.JedisUtil;
+        import com.qfedu.mitu.comment.vo.ResultUtil;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import javax.servlet.*;
+        import javax.servlet.annotation.WebFilter;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        import java.io.IOException;
 
 @WebFilter("/*")
 public class TokenFilter implements Filter {
@@ -72,4 +71,3 @@ public class TokenFilter implements Filter {
 
     }
 }
-

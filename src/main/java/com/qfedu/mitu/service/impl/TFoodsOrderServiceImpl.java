@@ -1,8 +1,6 @@
 package com.qfedu.mitu.service.impl;
 
 import com.qfedu.mitu.comment.vo.Result;
-import com.qfedu.mitu.comment.vo.ResultUtil;
-import com.qfedu.mitu.domain.FoodsAll;
 import com.qfedu.mitu.domain.TFoodsOrder;
 import com.qfedu.mitu.mapper.TFoodsOrderMapper;
 import com.qfedu.mitu.service.TFoodsOrderService;

@@ -1,7 +1,6 @@
 package com.qfedu.mitu.service;
 
 import com.qfedu.mitu.comment.vo.Result;
-import com.qfedu.mitu.domain.TFoods;
 import com.qfedu.mitu.domain.TFoodsOrder;
 import com.baomidou.mybatisplus.service.IService;
 

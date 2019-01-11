@@ -28,6 +28,11 @@
 		FROM t_user WHERE `username`=#{username}
 	</select>
 
+	<select id="selectEmail" resultMap="BaseResultMap" parameterType="com.qfedu.mitu.domain.TUser">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_user WHERE email=#{email}
+	</select>
 
 	<update id="updatePassword" parameterType="com.qfedu.mitu.domain.TUser">
         update t_user set password=#{password} where email=#{email}
@@ -38,7 +43,8 @@
     </update>
 
 	<select id="selectByEmail" resultMap="BaseResultMap" parameterType="string">
-		select <include refid="Base_Column_List"/> from t_user where email=#{email}
+		select <include refid="Base_Column_List"/>
+		from t_user where email=#{email}
 	</select>
 
 	<update id="uploadBackGround" parameterType="com.qfedu.mitu.domain.TUser">

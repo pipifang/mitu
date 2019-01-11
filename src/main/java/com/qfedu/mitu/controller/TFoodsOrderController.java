@@ -1,12 +1,12 @@
 package com.qfedu.mitu.controller;
 
 import com.qfedu.mitu.comment.vo.Result;
-import com.qfedu.mitu.service.TFoodsOrderService;
+import com.qfedu.mitu.service.TFoodsService;
+import com.qfedu.mitu.service.impl.TFoodsOrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>

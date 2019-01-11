@@ -42,4 +42,5 @@ public interface TUserService extends IService<TUser> {
      * @return
      */
     Result updatePass(TUser user);
+
 }

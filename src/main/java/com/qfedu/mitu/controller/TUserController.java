@@ -7,7 +7,6 @@ import com.qfedu.mitu.comment.utils.OSSUtil;
 import com.qfedu.mitu.comment.utils.TokenUtil;
 import com.qfedu.mitu.comment.vo.Result;
 import com.qfedu.mitu.domain.TUser;
-import com.qfedu.mitu.service.LoginService;
 import com.qfedu.mitu.service.TUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,8 +90,15 @@ public class TUserController {
         return service.uploadBackGround(user);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("/changepassword")
     public Result updatePass(TUser user) {
         return service.updatePass(user);
     }
+
 }

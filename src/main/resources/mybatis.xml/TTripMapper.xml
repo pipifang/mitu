@@ -13,5 +13,22 @@
 		<result column="trip_start_time" property="tripStartTime" />
 		<result column="trip_end_time" property="tripEndTime" />
 	</resultMap>
+	<sql id="Base_Column_List">
+		id,trip_location,trip_name,trip_price,trip_info,trip_start_time,trip_end_time
+  	</sql>
 
+	<!--查询所有y_trip对象-->
+	<select id="listAllTrip"  resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from t_trip
+	</select>
+
+	<!--根据ID查询t_trip对象-->
+	<select id="listTripById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from t_trip where id=#{id}
+	</select>
+
+	<!--根据ID查询trip_location字段查询-->
+	<select id="listTripByLocation" parameterType="string" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from t_trip where trip_location=#{tripLocation}
+	</select>
 </mapper>

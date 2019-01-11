@@ -30,6 +30,13 @@ public interface LoginService {
     Result userLogin(TUser user, String ip);
 
     /**
+     * 邮箱密码登录
+     * @param user
+     * @return
+     */
+    Result emailLogin(TUser user, String ip);
+
+    /**
      *用户退出
      * @param token
      * @return
