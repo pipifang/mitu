@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-
 @WebFilter("/*")
 public class TokenFilter implements Filter {
     @Autowired
@@ -73,3 +72,4 @@ public class TokenFilter implements Filter {
 
     }
 }
+

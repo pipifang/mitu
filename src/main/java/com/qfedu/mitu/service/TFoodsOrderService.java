@@ -1,6 +1,7 @@
 package com.qfedu.mitu.service;
 
 import com.qfedu.mitu.comment.vo.Result;
+import com.qfedu.mitu.domain.TFoods;
 import com.qfedu.mitu.domain.TFoodsOrder;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -14,5 +15,13 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface TFoodsOrderService extends IService<TFoodsOrder> {
 
-    Result selectTFoodsOrder(Integer uid);
+   Result selectTFoodsOrder(Integer uid);
+
+   Result selectwanna(Integer uid);
+
+   Result findUid(Integer uid);
+
+   Result findAll(Integer uid);
+
+   Result addOrder(Integer uid, Integer fid, Double foodsPrice, Integer personcount);
 }

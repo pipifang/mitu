@@ -11,6 +11,58 @@
 		<result column="order_foods_time" property="orderFoodsTime" />
 		<result column="total_price" property="totalPrice" />
 		<result column="personcount" property="personcount" />
+		<result column="foodslevel" property="foodslevel" />
 	</resultMap>
+    <resultMap id="BaseResultMap2" type="com.qfedu.mitu.domain.FoodsAll">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="fid" property="fid" />
+        <result column="foods_orderno" property="foodsOrderno" />
+        <result column="order_foods_time" property="orderFoodsTime" />
+        <result column="total_price" property="totalPrice" />
+        <result column="personcount" property="personcount" />
+        <result column="foodslevel" property="foodslevel" />
+        <result column="pictures" property="pictures" />
+        <result column="foods_price" property="foodsPrice" />
+        <result column="foods_info" property="foodsInfo" />
+        <result column="foodname" property="foodname" />
+    </resultMap>
 
+    <sql id="Base_Column_List">
+    id, uid, fid, foods_orderno, order_foods_time, total_price, personcount
+    </sql>
+    <select id="slelctByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
+        from t_foods_order fo
+        left outer join t_foods f
+        on fo.fid = f.id
+        where fo.foodslevel=0 and fo.uid = #{uid}
+	 </select>
+    <select id="findByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
+       from t_foods_order fo
+        left outer join t_foods f
+        on fo.fid = f.id
+        where fo.foodslevel=1 and fo.uid = #{uid}
+	 </select>
+    <select id="findUid" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
+       from t_foods_order fo
+        left outer join t_foods f
+        on fo.fid = f.id
+        where fo.foodslevel=2 and fo.uid = #{uid}
+	 </select>
+    <select id="findAll" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
+       from t_foods_order fo
+       left outer join t_foods f
+        on fo.fid = f.id
+        where fo.uid = #{uid}
+	 </select>
+    <insert id="insertOrder" parameterType="com.qfedu.mitu.domain.TFoodsOrder">
+        insert into t_foods_order
+        (uid,fid,total_price,foods_orderno, order_foods_time,personcount)
+        values
+        (#{uid},#{fid},#{totalPrice},#{foodsOrderno},now(),#{personcount})
+    </insert>
 </mapper>

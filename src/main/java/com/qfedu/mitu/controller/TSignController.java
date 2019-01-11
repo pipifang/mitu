@@ -21,7 +21,7 @@ public class TSignController {
     private TSignService tSignService;
 
     /**
-     * 根据用户ID判断用户当天的登录状态
+     * 根据用户ID判断用户当天的签到状态
      * @param uid
      * @return
      */

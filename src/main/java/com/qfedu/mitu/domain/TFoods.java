@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zcg
- * @since 2019-01-06
+ * @since 2019-01-10
  */
 @TableName("t_foods")
 public class TFoods extends Model<TFoods> {
@@ -27,6 +27,7 @@ public class TFoods extends Model<TFoods> {
 	private Double foodsPrice;
 	@TableField("foods_info")
 	private String foodsInfo;
+	private String foodname;
 
 
 	public Integer getId() {
@@ -59,6 +60,14 @@ public class TFoods extends Model<TFoods> {
 
 	public void setFoodsInfo(String foodsInfo) {
 		this.foodsInfo = foodsInfo;
+	}
+
+	public String getFoodname() {
+		return foodname;
+	}
+
+	public void setFoodname(String foodname) {
+		this.foodname = foodname;
 	}
 
 	@Override

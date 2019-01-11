@@ -11,6 +11,7 @@
 		<result column="order_trip_time" property="orderTripTime" />
 		<result column="total_price" property="totalPrice" />
 		<result column="personcount" property="personcount" />
+		<result column="trip" property="trip" />
 	</resultMap>
 
 </mapper>
