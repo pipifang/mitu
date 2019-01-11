@@ -11,6 +11,7 @@ package com.qfedu.mitu.comment.filter;
         import javax.servlet.http.HttpServletResponse;
         import java.io.IOException;
 
+
 @WebFilter("/*")
 public class TokenFilter implements Filter {
     @Autowired
@@ -39,7 +40,8 @@ public class TokenFilter implements Filter {
                 return;
             }
         }
-        if (uri.contains("/api/v1/code") || uri.contains("/api/v1/codeLogin") || uri.contains("/api/v1/login")) {
+        if (uri.contains("/api/v1/code") || uri.contains("/api/v1/codeLogin") || uri.contains("/api/v1/login") || uri.contains("/api/v1/emaillogin")
+        || uri.contains("/api/v1/checkemail")) {
             chain.doFilter(request, response);
         } else {
             String token = req.getHeader("token");
