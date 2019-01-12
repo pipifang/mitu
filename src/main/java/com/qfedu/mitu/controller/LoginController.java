@@ -24,7 +24,7 @@ public class LoginController {
     private LoginService service;
 
     /**
-     * 用户发送验证码或者找回密码
+     * 用户发送邮箱验证码或者找回密码
      *
      * @param email
      * @param request
@@ -34,6 +34,19 @@ public class LoginController {
     public Result sendCode(String email, HttpServletRequest request) {
 
         return service.sendCode(email, request.getRemoteAddr());
+    }
+
+    /**
+     * 用户发送邮箱验证码或者找回密码
+     *
+     * @param tel
+     * @param request
+     * @return
+     */
+    @PostMapping("/message")
+    public Result sendMessage(String tel, HttpServletRequest request) throws Exception {
+
+        return service.sendMesage(tel, request.getRemoteAddr());
     }
 
     /**
@@ -48,6 +61,20 @@ public class LoginController {
     public Result codeLogin(String email, String code, HttpServletRequest request) {
 
         return service.codeLogin(email, code, request.getRemoteAddr());
+    }
+
+    /**
+     * 验证码登录或者验证验证码是否正确（找回密码）
+     *
+     * @param tel
+     * @param code
+     * @param request
+     * @return
+     */
+    @PostMapping("/messageLogin")
+    public Result messageLogin(String tel, String code, HttpServletRequest request) {
+
+        return service.telLogin(tel, code, request.getRemoteAddr());
     }
 
     @GetMapping("/login")

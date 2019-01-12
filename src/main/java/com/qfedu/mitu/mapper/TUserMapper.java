@@ -25,4 +25,6 @@ public interface TUserMapper extends BaseMapper<TUser> {
 
     TUser selectEmail(TUser user);
 
+    TUser selectTel(String tel);
+
 }

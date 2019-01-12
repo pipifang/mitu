@@ -15,12 +15,29 @@ public interface LoginService {
     Result sendCode(String email,String ip);
 
     /**
-     * 用户输入验证码验证登录
+     * /**
+     * 用户输入手机号，发送验证码
+     * @param tel 用户邮箱
+     *
+     * @return
+     */
+    Result sendMesage(String tel,String ip) throws Exception;
+
+    /**
+     * 用户输入邮箱验证码验证登录
      *
      * @param code 验证码
      * @return
      */
     Result codeLogin(String email, String code,String ip);
+
+    /**
+     * 用户输入手机验证码验证登录
+     *
+     * @param code 验证码
+     * @return
+     */
+    Result telLogin(String email, String code,String ip);
 
     /**
      * 用户名密码登录，可使用邮箱或者用户名登录

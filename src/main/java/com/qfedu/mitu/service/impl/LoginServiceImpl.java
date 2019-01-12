@@ -3,6 +3,7 @@ package com.qfedu.mitu.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.qfedu.mitu.comment.constant.Constant;
 import com.qfedu.mitu.comment.email.EmailUtils;
+import com.qfedu.mitu.comment.email.Message;
 import com.qfedu.mitu.comment.utils.ConvertUtil;
 import com.qfedu.mitu.comment.utils.EncrypUtil;
 import com.qfedu.mitu.comment.utils.JedisUtil;
@@ -73,6 +74,43 @@ public class LoginServiceImpl implements LoginService {
         return ResultUtil.setERROR("验证");
     }
 
+    @Override
+    public Result sendMesage(String tel,String ip) throws Exception {
+        String handleNumber = jedisUtil.getStr(ip);
+
+        //用户号第一次输入手机号获取验证码
+        if (Objects.isNull(handleNumber)) {
+            int code = new Random().nextInt(999999);
+            boolean result = Message.sendCode(tel, String.valueOf(code));
+            if (result) {
+                jedisUtil.addStr(tel, code + "", TimeUnit.MINUTES, 5);
+
+            }
+
+            jedisUtil.addStr(ip, 1 + "", TimeUnit.MINUTES, 3);
+            return ResultUtil.setOK("验证码发送", null);
+        }
+
+        if (Integer.valueOf(handleNumber) > Constant.CODESENDNUMBER) {
+            return ResultUtil.setOtherERROR("操作频繁");
+        }
+
+        //用戶不是第一次也不是規定時間超過3次
+        if (Integer.valueOf(handleNumber) <= Constant.CODESENDNUMBER) {
+            Integer value = Integer.valueOf(handleNumber);
+            value++;
+            int code = new Random().nextInt(999999);
+            boolean result = Message.sendCode(tel, String.valueOf(code));
+            if (result) {
+                jedisUtil.addStr(tel, code + "", TimeUnit.MINUTES, 5);
+            }
+            jedisUtil.addStr(ip, value + "", TimeUnit.MINUTES, 3);
+            return ResultUtil.setOK("验证码发送", null);
+        }
+
+        return ResultUtil.setERROR("验证");
+    }
+
 
     @Override
     public Result codeLogin(String email, String code, String ip) {
@@ -99,6 +137,42 @@ public class LoginServiceImpl implements LoginService {
 
                 } else {
                     TUser user1 = userMapper.selectByEmail(email);
+                    logsMapper.insertSelective(new TLogs(user1.getId(), ip, "验证码验证"));
+                    String token = TokenUtil.createToken(JSON.toJSONString(userMapper.selectById(user1.getId())), Constant.CODETOKENNUMBER);
+                    jedisUtil.addHash(Constant.CODETOKENKEY, "token" + token, token);
+                    return ConvertUtil.convert(i, "认证", user1, token);
+                }
+            } else {
+                return ResultUtil.setOtherERROR("验证码不一致");
+            }
+        }
+    }
+
+    @Override
+    public Result telLogin(String tel, String code, String ip) {
+        String oldCode = null;
+        if (tel != null) {
+            oldCode = jedisUtil.getStr(tel);
+        }
+
+        if (oldCode == null) {
+            return ResultUtil.setOtherERROR("验证码过期");
+        } else {
+            if (Objects.equals(oldCode, code)) {
+                int i = 1;
+                if (userMapper.selectTel(tel) == null) {
+                    TUser user = new TUser();
+                    user.setTel(tel);
+                    user.setPassword(EncrypUtil.encAesStr(Constant.REGISTERKEY, code));
+                    user.setUsername(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
+                    i = userMapper.insert(user);
+                    logsMapper.insertSelective(new TLogs(user.getId(), ip, "验证码验证"));
+                    String token = TokenUtil.createToken(JSON.toJSONString(userMapper.selectById(user.getId())), Constant.CODETOKENNUMBER);
+                    jedisUtil.addHash(Constant.CODETOKENKEY, "token" + token, token);
+                    return ConvertUtil.convert(i, "认证", user, token);
+
+                } else {
+                    TUser user1 = userMapper.selectTel(tel);
                     logsMapper.insertSelective(new TLogs(user1.getId(), ip, "验证码验证"));
                     String token = TokenUtil.createToken(JSON.toJSONString(userMapper.selectById(user1.getId())), Constant.CODETOKENNUMBER);
                     jedisUtil.addHash(Constant.CODETOKENKEY, "token" + token, token);

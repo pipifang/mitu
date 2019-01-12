@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.mitu.mapper.TCollectionsMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.qfedu.mitu.domain.TCollections">
+		<id column="id" property="id" />
+		<result column="tid" property="tid" />
+		<result column="uid" property="uid" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<sql id="Base_Column_List" >
+    id, tid, uid
+  </sql>
+	<select id="selectExist" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from t_collections
+		where tid = #{tid,jdbcType=INTEGER} and uid = #{uid}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_collections
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+	<delete id="deleteFood" parameterType="java.lang.Integer" >
+    delete from t_collection_food
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+	<delete id="deleteTrip" parameterType="java.lang.Integer" >
+    delete from t_collection_trip
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+	<insert id="insert" parameterType="com.qfedu.mitu.domain.TCollections" >
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_collections (tid, uid)
+		values (#{tid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER})
+	</insert>
+
+	<insert id="insertFood" parameterType="com.qfedu.mitu.domain.TCollections" >
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_collection_food (fid, uid)
+		values (#{hid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER})
+	</insert>
+
+	<insert id="insertTrip" parameterType="com.qfedu.mitu.domain.TCollections" >
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_collection_trip (trid, uid)
+		values (#{trid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER})
+	</insert>
+
+	<select id="selectCollect" resultType="map" parameterType="int">
+    SELECT col.id cid,col.type,trip.id trid,trip.trip_location as location,
+trip.trip_price as price,trip.trip_name as tname,trip.trip_info as info,
+trip.trip_start_time as stime,trip.trip_end_time as etime
+FROM t_collections as col,t_trip as trip where tid = trip.id
+AND col.uid = #{uid}
+  </select>
+
+	<select id="selectCollectFood" resultType="map" parameterType="int">
+    SELECT
+     col.id cid,col.type,f.id fid,f.pictures,f.foods_price as price,f.foodname,f.foods_info as info
+     FROM t_collection_food col,t_foods f WHERE fid =f.id AND col.uid=#{uid}
+  </select>
+
+	<select id="selectCollectTrip" resultType="map" parameterType="int">
+    SELECT
+     col.id cid,col.type,t.id trid,t.trip_location as location,
+	t.trip_price as price,t.trip_name as tname,t.trip_info as info,
+	t.trip_start_time as stime,t.trip_end_time as etime
+     FROM t_collection_trip col,t_trip t WHERE trid =t.id AND col.uid=#{uid}
+  </select>
+
+</mapper>
