@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zcg
- * @since 2019-01-06
+ * @since 2019-01-10
  */
 @TableName("t_foods_order")
 public class TFoodsOrder extends Model<TFoodsOrder> {
@@ -32,6 +32,7 @@ public class TFoodsOrder extends Model<TFoodsOrder> {
 	@TableField("total_price")
 	private Double totalPrice;
 	private Integer personcount;
+	private Integer foodslevel;
 
 
 	public Integer getId() {
@@ -88,6 +89,14 @@ public class TFoodsOrder extends Model<TFoodsOrder> {
 
 	public void setPersoncount(Integer personcount) {
 		this.personcount = personcount;
+	}
+
+	public Integer getFoodslevel() {
+		return foodslevel;
+	}
+
+	public void setFoodslevel(Integer foodslevel) {
+		this.foodslevel = foodslevel;
 	}
 
 	@Override

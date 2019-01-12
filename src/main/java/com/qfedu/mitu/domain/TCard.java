@@ -23,7 +23,7 @@ public class TCard extends Model<TCard> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
 	private Integer uid;
-	private Integer sttatu;
+	private Integer status;
 	private Date starttime;
 	private Date endtime;
 	private Integer discount;
@@ -45,12 +45,12 @@ public class TCard extends Model<TCard> {
 		this.uid = uid;
 	}
 
-	public Integer getSttatu() {
-		return sttatu;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setSttatu(Integer sttatu) {
-		this.sttatu = sttatu;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Date getStarttime() {

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zcg
- * @since 2019-01-06
+ * @since 2019-01-10
  */
 @TableName("t_trip_order")
 public class TTripOrder extends Model<TTripOrder> {
@@ -32,6 +32,7 @@ public class TTripOrder extends Model<TTripOrder> {
 	@TableField("total_price")
 	private Double totalPrice;
 	private Integer personcount;
+	private Integer trip;
 
 
 	public Integer getId() {
@@ -88,6 +89,14 @@ public class TTripOrder extends Model<TTripOrder> {
 
 	public void setPersoncount(Integer personcount) {
 		this.personcount = personcount;
+	}
+
+	public Integer getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Integer trip) {
+		this.trip = trip;
 	}
 
 	@Override

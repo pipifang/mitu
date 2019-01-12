@@ -8,6 +8,7 @@
 		<result column="pictures" property="pictures" />
 		<result column="foods_price" property="foodsPrice" />
 		<result column="foods_info" property="foodsInfo" />
+		<result column="foodname" property="foodname" />
 	</resultMap>
 
 </mapper>
