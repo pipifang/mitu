@@ -40,7 +40,7 @@ public class TokenFilter implements Filter {
             }
         }
         if (uri.contains("/api/v1/code") || uri.contains("/api/v1/codeLogin") || uri.contains("/api/v1/login") || uri.contains("/api/v1/emaillogin")
-        || uri.contains("/api/v1/checkemail")) {
+        || uri.contains("/api/v1/checkemail")|| uri.contains("/api/v1/message")|| uri.contains("/api/v1/messageLogin")) {
             chain.doFilter(request, response);
         } else {
             String token = req.getHeader("token");
