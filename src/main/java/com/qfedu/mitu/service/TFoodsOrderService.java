@@ -14,13 +14,13 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface TFoodsOrderService extends IService<TFoodsOrder> {
 
-   Result selectTFoodsOrder(Integer uid);
-
-   Result selectwanna(Integer uid);
-
-   Result findUid(Integer uid);
+   Result selectTFoodsOrder(Integer uid,Integer foodslevel);
 
    Result findAll(Integer uid);
 
    Result addOrder(Integer uid, Integer fid, Double foodsPrice, Integer personcount);
+
+   Result updateById(Integer id);
+
+    Result updateId(Integer id);
 }

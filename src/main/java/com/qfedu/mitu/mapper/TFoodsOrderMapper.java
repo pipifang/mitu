@@ -3,6 +3,7 @@ package com.qfedu.mitu.mapper;
 import com.qfedu.mitu.domain.FoodsAll;
 import com.qfedu.mitu.domain.TFoodsOrder;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,13 +17,14 @@ import java.util.List;
  */
 public interface TFoodsOrderMapper extends BaseMapper<TFoodsOrder> {
 
-    List<FoodsAll> slelctByUid(Integer uid);
+    List<FoodsAll> slelctByUid(@Param("uid") Integer uid,@Param("foodslevel") Integer foodslevel);
 
-    List<FoodsAll> findByUid(Integer uid);
-
-    List<FoodsAll> findUid(Integer uid);
+    void insertOrder(TFoodsOrder tFoodsOrder);
 
     List<FoodsAll> findAll(Integer uid);
 
-    void insertOrder(TFoodsOrder tFoodsOrder);
+    void updateById(Integer id);
+
+    void updateId(Integer id);
+
 }

@@ -3,10 +3,7 @@ package com.qfedu.mitu.controller;
 import com.qfedu.mitu.comment.vo.Result;
 import com.qfedu.mitu.service.TFoodsOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -23,37 +20,18 @@ public class TFoodsOrderController {
     private TFoodsOrderService tFoodsOrderService;
 
     /**
-     * 已删除美食订单
+     * 查看美食订单状态 1未支付 2已支付
      * @param uid
+     * @param foodslevel
      * @return
      */
     @GetMapping("/selectTFoodsOrder")
-    public Result selectTFoodsOrder(Integer uid){
-        return tFoodsOrderService.selectTFoodsOrder(uid);
+    public Result selectTFoodsOrder(Integer uid,Integer foodslevel){
+        return tFoodsOrderService.selectTFoodsOrder(uid,foodslevel);
     }
 
     /**
-     * 查看未支付订单
-     * @param uid
-     * @return
-     */
-    @GetMapping("/selectwanna")
-    public Result selectwanna(Integer uid){
-        return tFoodsOrderService.selectwanna(uid);
-    }
-
-    /**
-     * 查看已支付订单
-     * @param uid
-     * @return
-     */
-    @GetMapping("/findUid")
-    public Result findUid(Integer uid){
-        return tFoodsOrderService.findUid(uid);
-    }
-
-    /**
-     * 查看所有订单
+     * 查看用户所有订单
      * @param uid
      * @return
      */
@@ -73,5 +51,25 @@ public class TFoodsOrderController {
     @PostMapping("/addOrder")
     public Result addOrder(Integer uid, Integer fid, Double foodsPrice, Integer personcount){
         return tFoodsOrderService.addOrder(uid,fid,foodsPrice,personcount);
+    }
+
+    /**
+     * 支付
+     * @param id
+     * @return
+     */
+    @PutMapping("updateById")
+    public Result updateById(Integer id){
+        return tFoodsOrderService.updateById(id);
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    @PutMapping("updateId")
+    public Result updateId(Integer id){
+        return tFoodsOrderService.updateId(id);
     }
 }

@@ -2,6 +2,7 @@ package com.qfedu.mitu.mapper;
 
 import com.qfedu.mitu.domain.TCard;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface TCardMapper extends BaseMapper<TCard> {
 
+    TCard selectByUid(Integer uid);
 }

@@ -6,10 +6,19 @@
 	<resultMap id="BaseResultMap" type="com.qfedu.mitu.domain.TCard">
 		<id column="id" property="id" />
 		<result column="uid" property="uid" />
-		<result column="sttatu" property="sttatu" />
+		<result column="status" property="status" />
 		<result column="starttime" property="starttime" />
 		<result column="endtime" property="endtime" />
 		<result column="discount" property="discount" />
 	</resultMap>
-
+	<sql id="Base_Column_List">
+    id, uid, status, starttime, endtime, discount
+    </sql>
+	<select id="selectByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_card  where uid=#{uid}
+		order by starttime desc
+		limit 0,1
+	</select>
 </mapper>

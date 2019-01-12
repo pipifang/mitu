@@ -10,6 +10,7 @@ public class FoodsAll {
 
     @TableId(value="id", type= IdType.AUTO)
     private Integer id;
+    private Integer uid;
     private String pictures;
     @TableField("foods_price")
     private Double foodsPrice;
@@ -103,5 +104,13 @@ public class FoodsAll {
 
     public void setFoodsOrderno(String foodsOrderno) {
         this.foodsOrderno = foodsOrderno;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

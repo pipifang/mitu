@@ -31,33 +31,19 @@
     <sql id="Base_Column_List">
     id, uid, fid, foods_orderno, order_foods_time, total_price, personcount
     </sql>
-    <select id="slelctByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
-       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
+    <select id="slelctByUid" resultMap="BaseResultMap2">
+       select fo.id,f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
         from t_foods_order fo
         left outer join t_foods f
         on fo.fid = f.id
-        where fo.foodslevel=0 and fo.uid = #{uid}
-	 </select>
-    <select id="findByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
-       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
-       from t_foods_order fo
-        left outer join t_foods f
-        on fo.fid = f.id
-        where fo.foodslevel=1 and fo.uid = #{uid}
-	 </select>
-    <select id="findUid" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
-       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
-       from t_foods_order fo
-        left outer join t_foods f
-        on fo.fid = f.id
-        where fo.foodslevel=2 and fo.uid = #{uid}
+        where fo.foodslevel=#{foodslevel} and fo.uid = #{uid}
 	 </select>
     <select id="findAll" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
-       select f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
+       select fo.id,fo.uid,f.foodname,f.foods_price,f.foods_info,f.pictures,fo.order_foods_time,fo.personcount,fo.total_price,fo.foodslevel,fo.foods_orderno
        from t_foods_order fo
        left outer join t_foods f
         on fo.fid = f.id
-        where fo.uid = #{uid}
+        where fo.foodslevel !=0 and fo.uid = #{uid}
 	 </select>
     <insert id="insertOrder" parameterType="com.qfedu.mitu.domain.TFoodsOrder">
         insert into t_foods_order
@@ -65,4 +51,10 @@
         values
         (#{uid},#{fid},#{totalPrice},#{foodsOrderno},now(),#{personcount})
     </insert>
+    <update id="updateById" parameterType="java.lang.Integer">
+        update t_foods_order set foodslevel=2 where id=#{id};
+    </update>
+    <update id="updateId" parameterType="java.lang.Integer">
+        update t_foods_order set foodslevel=0 where id=#{id};
+    </update>
 </mapper>
